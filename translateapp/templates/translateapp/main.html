@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- TailWindow CDN -->
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <!-- Title -->
-    <title>AWS Translater application</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block content %}
+
     <div class="">
         <h1 class="">テキスト翻訳と分析</h1>
         <form action="/main" method="post">
@@ -45,5 +38,4 @@
         });
     </script>
     
-</body>
-</html>
+{% endblock %}
