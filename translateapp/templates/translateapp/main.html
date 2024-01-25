@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TailWindow CDN -->
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <!-- Title -->
+    <title>AWS Translater application</title>
+</head>
+<body>
+    <div class="">
+        <h1 class="">テキスト翻訳と分析</h1>
+        <form action="/main" method="post">
+            <div class="">
+                <label for="text" class="">テキストを入力してください：</label>
+                <textarea name="text" id="text" rows="4" class="" placeholder="翻訳する日本語テキスト"></textarea>
+            </div>
+            <div class="">
+                <!-- 言語ボタン -->
+                <div class="language-button">
+                    <button type="button" data-lang="en" class="">英語</button>
+                    <button type="button" data-lang="zh" class="">中国語</button>
+                    <button type="button" data-lang="es" class="">スペイン語</button>
+                    <button type="button" data-lang="ar" class="">アラビア語</button>
+                    <button type="button" data-lang="fr" class="">フランス語</button>
+                </div>
+            </div>
+            <div class="">
+                <label for="target_lang">翻訳したい言語（例：'en'、'zh'）：</label>
+                <input type="text" id="target_lang" name="target_lang">
+            </div>
+            <div class="">
+                <button type="submit">翻訳と分析</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 言語選択スクリプト -->
+    <script>
+        document.querySelectorAll('.language-button button').forEach(function(button) {
+            button.addEventListener('click', function() {
+                document.getElementById('target_lang').value = this.getAttribute('data-lang');
+            });
+        });
+    </script>
+    
+</body>
+</html>
