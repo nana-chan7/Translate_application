@@ -3,28 +3,58 @@
 {% block content %}
 
     <div class="">
-        <h1 class="">テキスト翻訳と分析</h1>
+        <h1 class="font-bold text-3xl text-center">テキスト翻訳</h1>
+
         <form action="/main" method="post">
-            <div class="">
-                <label for="text" class="">テキストを入力してください：</label>
-                <textarea name="text" id="text" rows="4" class="" placeholder="翻訳する日本語テキスト"></textarea>
-            </div>
-            <div class="">
-                <!-- 言語ボタン -->
-                <div class="language-button">
-                    <button type="button" data-lang="en" class="">英語</button>
-                    <button type="button" data-lang="zh" class="">中国語</button>
-                    <button type="button" data-lang="es" class="">スペイン語</button>
-                    <button type="button" data-lang="ar" class="">アラビア語</button>
-                    <button type="button" data-lang="fr" class="">フランス語</button>
+            <div class="p-4">
+                <div class="flex justify-center">
+                    <label for="text" class="block text-lg font-medium text-gray-700 text-center">日本語テキストを入力してください：</label>
+                </div>
+                <div class="flex justify-center mt-2">
+                    <textarea name="text" id="text" rows="3" class="w-full max-w-lg border border-gray-300" placeholder="翻訳したいテキスト"></textarea>
                 </div>
             </div>
+            
+            
             <div class="">
-                <label for="target_lang">翻訳したい言語（例：'en'、'zh'）：</label>
-                <input type="text" id="target_lang" name="target_lang">
+                <div class="flex justify-center">
+                    <label for="text" class="block text-lg font-medium text-gray-700 text-center">翻訳したい言語</label>
+                </div>
+
+                <!-- 言語ボタン -->
+                <div class="language-button text-center mt-3">
+                    <button type="button" data-lang="en"
+                        class="w-24 px-2 py-1 bg-gray-800 hover:bg-gray-500 text-white font-semibold rounded">
+                        英語
+                    </button>
+                    <button type="button" data-lang="zh"
+                        class="w-24 px-2 py-1 text-gray-800 hover:bg-gray-200 border border-gray-500 font-semibold rounded">
+                        中国語
+                    </button>
+                    <button type="button" data-lang="es"
+                        class="w-24 px-2 py-1 bg-gray-800 hover:bg-gray-500 text-white font-semibold rounded">
+                        スペイン語
+                    </button>
+                    <button type="button" data-lang="ar"
+                        class="w-24 px-2 py-1 text-gray-800 hover:bg-gray-200 border border-gray-500 font-semibold rounded">
+                        アラビア語
+                    </button>
+                    <button type="button" data-lang="fr"
+                        class="w-24 px-2 py-1 bg-gray-800 hover:bg-gray-500 text-white font-semibold rounded">
+                        フランス語
+                    </button>
+                </div>
             </div>
-            <div class="">
-                <button type="submit">翻訳と分析</button>
+            <div class="text-center mt-8">
+                <div class="flex justify-center">
+                    <label for="target_lang" class="block text-lg font-medium text-gray-700 text-center">その他ソース言語（例：'en'、'zh'）：</label>
+                </div>
+                <div class="flex justify-center mt-2">
+                    <input type="text" id="target_lang" name="target_lang" class=" border border-gray-300">
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <button type="submit"class="bg-gray-800 hover:bg-gray-500 text-white rounded px-4 py-2">翻訳と分析</button> 
             </div>
         </form>
     </div>
