@@ -1,11 +1,31 @@
-
 {% extends "layout.html" %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h2>結果</h2>
-        <p>{{ original_text }}</p>
-        <p>{{ translate_text }}</p>
+<div class="text-center mt-20">
+    <h1 class="font-bold text-3xl ">翻訳結果</h1>
+    <div class="flex items-center justify-center space-x-5 mt-4">
+        
+        <div class="text-blue-400">
+            <div class="mb-3 text-2xl">日本語</div>
+            <span class=" text-4xl underline decoration-slate-40 decoration-gray-500 decoration-solid decoration-2">{{ original_text }}</span>
+        </div>
+
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+        </svg>
+
+        <div class="text-red-400">
+            <!-- ここでソース言語コードを表示 -->
+            <div class="mb-3 text-2xl">{{ source_language_code|upper }}</div>
+            <span class="text-4xl underline decoration-slate-40 decoration-gray-500 decoration-solid decoration-2">{{ translate_text }}</span>
+        </div>
+
     </div>
-    <a href="{{ url_for('main') }}">別のテキストを翻訳</a>
+    <div class="mt-12 font-bold">
+        <button onclick="location.href='{{ url_for('main') }}'"
+            class="bg-gray-800 hover:bg-gray-500 text-white rounded px-4 py-2">
+            別のテキストを翻訳
+        </button> 
+    </div>
+</div>
 {% endblock %}

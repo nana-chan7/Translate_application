@@ -35,21 +35,16 @@ def main():
         return render_template('translateapp/main.html')
     
     if request.method == 'POST':
-            # ソース言語 (日本語)
-            source_lang = "ja"
+        # ソース言語 (日本語)
+        source_lang = "ja"
         
-            # 翻訳したい日本語テキストを取得
-            input_text = request.form['text']
-            target_lang = request.form['target_lang']
-            
-            # テキストを指定された言語に翻訳
-            translate_result = translate.translate_text(Text=input_text, SourceLanguageCode=source_lang, TargetLanguageCode=target_lang)
-            translate_text = translate_result['TranslatedText']
+        # 翻訳したい日本語テキストを取得
+        input_text = request.form['text']
+        target_lang = request.form['target_lang']
+        
+        # テキストを指定された言語に翻訳
+        translate_result = translate.translate_text(Text=input_text, SourceLanguageCode=source_lang, TargetLanguageCode=target_lang)
+        translate_text = translate_result['TranslatedText']
 
-            # 翻訳言語からキーフレーズを検出
-            # key_phrases = comprehend.detect_key_phrases(Text=translate_text, LanguageCode=target_lang)
-            
-            return render_template('translateapp/result.html', original_text=input_text, translate_text=translate_text)
-
-    
-
+        # 翻訳結果ページを表示
+        return render_template('translateapp/result.html', original_text=input_text, translate_text=translate_text, source_language_code=target_lang)
