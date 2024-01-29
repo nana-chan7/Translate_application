@@ -6,13 +6,13 @@
     <h1 class="font-bold text-3xl text-center">テキスト翻訳</h1>
 
     <!-- AWS認証情報入力フォーム -->
-    <form id="credentials-form" method="post" action="/set_credentials">
+    <form method="post">
         <input type="text" name="aws_access_key_id" placeholder="AWS Access Key ID">
         <input type="password" name="aws_secret_access_key" placeholder="AWS Secret Access Key">
         <input type="text" name="aws_region" placeholder="AWS Region (例: us-east-1)">
         <button type="submit">認証情報を設定</button>
-    </form>
-    
+    </form>    
+
     <form action="/main" method="post">
         <div class="p-4">
             <div class="flex justify-center">
@@ -61,14 +61,6 @@
                 <input type="text" id="target_lang" name="target_lang" class=" border border-gray-300" placeholder="言語コード">
             </div>
         </div>
-
-        <!-- 例：AWS認証情報入力フォーム -->
-        <form id="credentials-form" method="post" action="/set_credentials">
-            <input type="text" name="aws_access_key_id" placeholder="AWS Access Key ID">
-            <input type="password" name="aws_secret_access_key" placeholder="AWS Secret Access Key">
-            <input type="text" name="aws_region" placeholder="AWS Region (例: us-east-1)">
-            <button type="submit">認証情報を設定</button>
-        </form>
 
         <div class="text-center mt-5">
             <button type="submit"class="bg-gray-800 hover:bg-gray-500 text-white rounded px-4 py-2">翻訳と分析</button> 

@@ -17,21 +17,26 @@ def get_aws_client(service_name):
 def index():
     return render_template('translateapp/index.html')
 
-@app.route('/set_credentials', methods=['GET', 'POST'])
-def set_credentials():
-    if request.method == 'POST':
-        session['aws_access_key_id'] = request.form.get('aws_access_key_id')
-        session['aws_secret_access_key'] = request.form.get('aws_secret_access_key')
-        session['aws_region'] = request.form.get('aws_region')
-        return redirect(url_for('main'))
-    return render_template('translateapp/set_credentials.html')
+# @app.route('/set_credentials', methods=['GET', 'POST'])
+# def set_credentials():
+#     if request.method == 'POST':
+#         session['aws_access_key_id'] = request.form.get('aws_access_key_id')
+#         session['aws_secret_access_key'] = request.form.get('aws_secret_access_key')
+#         session['aws_region'] = request.form.get('aws_region')
+#         return redirect(url_for('main'))
+#     return render_template('translateapp/set_credentials.html')
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
     if request.method == 'GET':
-        return render_template('main.html')
+        return render_template('translateapp/main.html')
 
     if request.method == 'POST':
+        # 認証情報の検証とセッションへの保存
+        session['aws_access_key_id'] = request.form.get('aws_access_key_id')
+        session['aws_secret_access_key'] = request.form.get('aws_secret_access_key')
+        session['aws_region'] = request.form.get('aws_region')
+
         try:
             translate = get_aws_client('translate')
             if translate:
@@ -46,3 +51,22 @@ def main():
         except Exception as e:
             return f'エラーが発生しました: {e}'
     return render_template('translateapp/main.html')
+
+# @app.route('/set_credentials', methods=['GET', 'POST'])
+# def set_credentials():
+#     if request.method == 'POST':
+#         access_key = request.form.get('aws_access_key_id')
+#         secret_key = request.form.get('aws_secret_access_key')
+#         region = request.form.get('aws_region')
+
+#         # ここで入力値のバリデーションを行う
+#         if not access_key or not secret_key or not region:
+#             # 不正な入力の場合はエラーページへリダイレクト
+#             return render_template('translateapp/error_credentials.html')
+
+#         session['aws_access_key_id'] = access_key
+#         session['aws_secret_access_key'] = secret_key
+#         session['aws_region'] = region
+#         return redirect(url_for('main'))
+
+#     return render_template('translateapp/set_credentials.html')
