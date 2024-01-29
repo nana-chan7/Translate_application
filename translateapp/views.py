@@ -1,50 +1,49 @@
-# モジュールインポート
-from translateapp import app
-from flask import render_template, request
+from flask import Flask, redirect, render_template, request, session, url_for
 import boto3
-import json
 
-from . import key # AWS認証用
+app = Flask(__name__)
 
-# AWS認証・リージョン
-aws_access_key_id = key.AWS_ACCESS_KEY_ID  # ID
-aws_secret_access_key = key.AWS_SECRET_ACCESS_KEY  # アクセスキー
-region = key.AWS_REGION  # リージョン
+# AWSクライアントの動的初期化関数
+def get_aws_client(service_name):
+    if 'aws_access_key_id' in session and 'aws_secret_access_key' in session and 'aws_region' in session:
+        return boto3.client(
+            service_name,
+            aws_access_key_id=session['aws_access_key_id'],
+            aws_secret_access_key=session['aws_secret_access_key'],
+            region_name=session['aws_region']
+        )
+    return None  # またはデフォルトの認証情報を使用
 
-# AWS Translateを初期化
-translate = boto3.client('translate', 
-                        aws_access_key_id=aws_access_key_id, 
-                        aws_secret_access_key=aws_secret_access_key, 
-                        region_name=region)
-# Comprehendクライアントを初期化
-comprehend = boto3.client('comprehend', 
-                        aws_access_key_id=aws_access_key_id, 
-                        aws_secret_access_key=aws_secret_access_key, 
-                        region_name=region)
-
-# トップページ
 @app.route('/')
 def index():
-    return render_template('translateapp/index.html')
+    return render_template('/templates/index.html')
 
-# 翻訳ページ
-@app.post('/main')
-@app.get('/main')
-def main():
-    if request.method == "GET":
-        return render_template('translateapp/main.html')
-    
+@app.route('/set_credentials', methods=['GET', 'POST'])
+def set_credentials():
     if request.method == 'POST':
-        # ソース言語 (日本語)
-        source_lang = "ja"
-        
-        # 翻訳したい日本語テキストを取得
-        input_text = request.form['text']
-        target_lang = request.form['target_lang']
-        
-        # テキストを指定された言語に翻訳
-        translate_result = translate.translate_text(Text=input_text, SourceLanguageCode=source_lang, TargetLanguageCode=target_lang)
-        translate_text = translate_result['TranslatedText']
+        session['aws_access_key_id'] = request.form.get('aws_access_key_id')
+        session['aws_secret_access_key'] = request.form.get('aws_secret_access_key')
+        session['aws_region'] = request.form.get('aws_region')
+        return redirect(url_for('main'))
+    return render_template('set_credentials.html')
 
-        # 翻訳結果ページを表示
-        return render_template('translateapp/result.html', original_text=input_text, translate_text=translate_text, source_language_code=target_lang)
+@app.route('/main', methods=['GET', 'POST'])
+def main():
+    if request.method == 'GET':
+        return render_template('main.html')
+
+    if request.method == 'POST':
+        try:
+            translate = get_aws_client('translate')
+            if translate:
+                source_lang = "ja"
+                input_text = request.form['text']
+                target_lang = request.form['target_lang']
+                translate_result = translate.translate_text(Text=input_text, SourceLanguageCode=source_lang, TargetLanguageCode=target_lang)
+                translate_text = translate_result['TranslatedText']
+                return render_template('result.html', original_text=input_text, translate_text=translate_text, source_language_code=target_lang)
+            else:
+                return 'AWS認証情報が設定されていません。'
+        except Exception as e:
+            return f'エラーが発生しました: {e}'
+    return render_template('main.html')
