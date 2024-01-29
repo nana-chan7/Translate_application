@@ -1,7 +1,6 @@
-from flask import Flask, redirect, render_template, request, session, url_for
+from translateapp import app
+from flask import redirect, render_template, request, session, url_for
 import boto3
-
-app = Flask(__name__)
 
 # AWSクライアントの動的初期化関数
 def get_aws_client(service_name):
@@ -16,7 +15,7 @@ def get_aws_client(service_name):
 
 @app.route('/')
 def index():
-    return render_template('/templates/index.html')
+    return render_template('translateapp/index.html')
 
 @app.route('/set_credentials', methods=['GET', 'POST'])
 def set_credentials():
@@ -25,7 +24,7 @@ def set_credentials():
         session['aws_secret_access_key'] = request.form.get('aws_secret_access_key')
         session['aws_region'] = request.form.get('aws_region')
         return redirect(url_for('main'))
-    return render_template('set_credentials.html')
+    return render_template('translateapp/set_credentials.html')
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
@@ -41,9 +40,9 @@ def main():
                 target_lang = request.form['target_lang']
                 translate_result = translate.translate_text(Text=input_text, SourceLanguageCode=source_lang, TargetLanguageCode=target_lang)
                 translate_text = translate_result['TranslatedText']
-                return render_template('result.html', original_text=input_text, translate_text=translate_text, source_language_code=target_lang)
+                return render_template('translateapp/result.html', original_text=input_text, translate_text=translate_text, source_language_code=target_lang)
             else:
                 return 'AWS認証情報が設定されていません。'
         except Exception as e:
             return f'エラーが発生しました: {e}'
-    return render_template('main.html')
+    return render_template('translateapp/main.html')
