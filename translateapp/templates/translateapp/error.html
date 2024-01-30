@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="text-center mt-20">
+    <h1 class="font-bold text-3xl text-red-500">エラーが発生しました</h1>
+    <p class="mt-4">{{ error_message }}</p>
+    <div class="mt-12 font-bold">
+        <button onclick="location.href='{{ url_for('main') }}'"
+            class="bg-gray-800 hover:bg-gray-500 text-white rounded px-4 py-2">
+            戻る
+        </button> 
+    </div>
+</div>
+{% endblock %}
