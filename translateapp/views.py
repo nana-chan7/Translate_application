@@ -4,14 +4,6 @@ from flask import render_template, request
 import boto3
 import json
 
-from . import key # AWS認証用
-
-# AWS認証・リージョン
-# aws_access_key_id = key.AWS_ACCESS_KEY_ID  # ID
-# aws_secret_access_key = key.AWS_SECRET_ACCESS_KEY  # アクセスキー
-# region = key.AWS_REGION  # リージョン
-
-
 # 認証情報 初期化関数
 def aws_initialization(aws_id, aws_key, region):
     # AWS Translateを初期化
