@@ -9,13 +9,13 @@
         <form id="translateForm" action="/main" method="post" class="mt-4 text-center">
             <!-- 認証情報入力 -->
             <div>
-                <div>
+                <div class="w-full">
                     <label for="" class="block text-lg font-medium text-gray-700 text-center">認証情報を入力してください：</label>
                 </div>
-                <div class="mt-2">
-                    <input type="password" name="aws_access_key_id" class=" border border-gray-300" placeholder="AWS Access Key ID">
-                    <input type="password" name="aws_secret_access_key" class=" border border-gray-300" placeholder="AWS Secret Access Key">
-                    <input type="password" name="region" class=" border border-gray-300" placeholder="AWS Region (例: us-east-1)">
+                <div class="mt-2 flex space-x-2 justify-center">
+                    <input type="password" name="aws_access_key_id" class="border border-gray-300 w-full" placeholder="AWS Access Key ID">
+                    <input type="password" name="aws_secret_access_key" class="border border-gray-300 w-full" placeholder="AWS Secret Access Key">
+                    <input type="password" name="region" class="border border-gray-300 w-full" placeholder="AWS Region (例: us-east-1)">
                 </div>
             </div>
             <!-- 日本語テキスト入力 -->
