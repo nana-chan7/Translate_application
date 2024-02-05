@@ -1,4 +1,4 @@
 translateapp/__pycache__/
 /translateapp/config.py
-/translateapp/key.py
 /translateapp/__init__.py
+/key.py
