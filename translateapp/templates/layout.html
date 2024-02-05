@@ -6,7 +6,7 @@
     <title>Text Translater</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
     <nav>
         <div class="flex px-5 py-3 border-b">
             <div class="flex items-center font-bold text-xl">
@@ -29,8 +29,12 @@
             </div>
         </div>
     </nav>
-    <div class="m-5">
+    <div class="flex-grow m-5">
         {% block content %}{% endblock %}
     </div>
+
+    <footer class="flex justify-center items-center w-full h-14 bg-gray-200 mt-auto">
+        <span class="text-center">© 2024 frogBear_7. All rights reserved.</span>
+    </footer>
 </body>
 </html>
