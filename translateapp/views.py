@@ -105,9 +105,6 @@ def trial():
     
     if request.method == 'POST':
         
-        # リージョン
-        aws_region = request.form['region']
-        
         # ユーザーからの入力を取得
         input_text = request.form['text']
         target_lang = request.form['target_lang']
@@ -116,7 +113,7 @@ def trial():
         translate = boto3.client('translate', 
                                 aws_access_key_id=key.aws_access_key_id, 
                                 aws_secret_access_key=key.aws_secret_access_key, 
-                                region_name=aws_region)
+                                region_name=key.aws_region)
         
         try:
             # テキストを翻訳
