@@ -22,9 +22,13 @@
 
     </div>
     <div class="mt-12 font-bold">
-        <button onclick="location.href='{{ url_for('main') }}'"
+        <button onclick="location.href='{{ url_for('trial') }}'"
             class="bg-gray-800 hover:bg-gray-500 text-white rounded px-4 py-2">
             別のテキストを翻訳
+        </button> 
+        <button onclick="location.href='{{ url_for('main') }}'"
+            class="bg-gray-800 hover:bg-gray-500 text-white rounded px-4 py-2">
+            認証情報を入力して翻訳
         </button> 
     </div>
 </div>
