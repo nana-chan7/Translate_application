@@ -96,33 +96,3 @@ def main():
         return render_template('translateapp/result.html', original_text=input_text, translate_text=translate_text, source_language_code=target_lang)
     
     
-# trial ページ
-@app.post('/trial')
-@app.get('/trial')
-def trial():
-    if request.method == 'GET':
-        return render_template('translateapp/trial.html')
-    
-    if request.method == 'POST':
-        
-        # ユーザーからの入力を取得
-        input_text = request.form['text']
-        target_lang = request.form['target_lang']
-        
-        # AWS Translate クライアントを初期化
-        translate = boto3.client('translate', 
-                                aws_access_key_id=key.aws_access_key_id, 
-                                aws_secret_access_key=key.aws_secret_access_key, 
-                                region_name=key.aws_region)
-        
-        try:
-            # テキストを翻訳
-            translate_result = translate.translate_text(Text=input_text, SourceLanguageCode='ja', TargetLanguageCode=target_lang)
-            translate_text = translate_result['TranslatedText']
-            
-            # 翻訳結果を表示
-            return render_template('translateapp/result.html', original_text=input_text, translate_text=translate_text, source_language_code=target_lang)
-        except Exception as e:
-            # エラー処理
-            return render_template('translateapp/error.html', error_message=str(e))
-            

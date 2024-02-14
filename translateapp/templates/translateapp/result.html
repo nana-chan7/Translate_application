@@ -19,16 +19,11 @@
             <div class="mb-3 text-2xl">{{ source_language_code|upper }}</div>
             <span class="text-4xl underline decoration-slate-40 decoration-gray-500 decoration-solid decoration-2">{{ translate_text }}</span>
         </div>
-
     </div>
     <div class="mt-12 font-bold">
-        <button onclick="location.href='{{ url_for('trial') }}'"
-            class="bg-gray-800 hover:bg-gray-500 text-white rounded px-4 py-2">
-            別のテキストを翻訳
-        </button> 
         <button onclick="location.href='{{ url_for('main') }}'"
             class="bg-gray-800 hover:bg-gray-500 text-white rounded px-4 py-2">
-            認証情報を入力して翻訳
+            別のテキストを翻訳
         </button> 
     </div>
 </div>
