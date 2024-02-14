@@ -4,7 +4,6 @@ from flask import render_template, request
 import boto3
 from botocore.exceptions import BotoCoreError, ClientError
 import re
-import key
 
 # バリデーション関数
 def validate_aws_access_key_id(key_id):
